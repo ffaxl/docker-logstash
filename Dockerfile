@@ -12,7 +12,7 @@ RUN apk add --no-cache \
     && addgroup -S logstash \
     && adduser -g '&' -s /bin/bash -G logstash -S logstash \
     && mkdir /logstash \
-    && wget -qO - `wget -qO - https://www.elastic.co/downloads/logstash | grep -Eo 'https://.*?/logstash-.*?.tar.gz'` | tar xzf - --strip-components=1 -C /logstash \
+    && wget -qO - `wget -qO - https://www.elastic.co/downloads/logstash | grep -Eo 'https://.*?/logstash-.*?.tar.gz' | head -1` | tar xzf - --strip-components=1 -C /logstash \
     && rm /logstash/config/startup.options \
     && mv /logstash/config /logstash/config.orig \
     && mkdir /logstash/config \
