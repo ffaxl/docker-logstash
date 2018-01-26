@@ -15,8 +15,7 @@ RUN apk add --no-cache \
     && wget -qO - `wget -qO - https://www.elastic.co/downloads/logstash | grep -Eo 'https://.*?/logstash-.*?.tar.gz' | head -1` | tar xzf - --strip-components=1 -C /logstash \
     && rm /logstash/config/startup.options \
     && mv /logstash/config /logstash/config.orig \
-    && mkdir /logstash/config \
-    && cd /logstash && bin/logstash-plugin install logstash-filter-multiline
+    && mkdir /logstash/config
 
 COPY entry /
 
