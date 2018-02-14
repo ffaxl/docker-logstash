@@ -5,11 +5,6 @@ if [ x"$1" = x"sh" -o x"$1" = x"bash" ]; then
   exit
 fi
 
-chown -R logstash:logstash /logstash/config
-chown -R logstash:logstash /logstash/pipeline
-chown -R logstash:logstash /logstash/data
-chown -R logstash:logstash /logstash/logs
-
 [ ! -e /logstash/config/logstash.yml ] \
   && echo "Generating configs" \
   && cp -R /logstash/config.orig/* /logstash/config/
@@ -25,6 +20,9 @@ output {
 }
 EOF
 
-chown -R logstash:logstash /logstash
+chown -R logstash:logstash /logstash/config
+chown -R logstash:logstash /logstash/pipeline
+chown -R logstash:logstash /logstash/data
+chown -R logstash:logstash /logstash/logs
 
 exec su logstash -c "logstash/bin/logstash -f /logstash/pipeline $@"
