@@ -7,7 +7,8 @@ fi
 
 [ ! -e /logstash/config/logstash.yml ] \
   && echo "Generating configs" \
-  && cp -R /logstash/config.orig/* /logstash/config/
+  && cp -R /logstash/config.orig/* /logstash/config/ \
+  && chown -R logstash:logstash /logstash/config
 
 [ ! -e /logstash/pipeline -o `ls /logstash/pipeline 2>/dev/null | wc -l` == '0' ] \
   && mkdir /logstash/pipeline \
