@@ -20,8 +20,6 @@ output {
 }
 EOF
 
-chown -R logstash:logstash /logstash/config
-chown -R logstash:logstash /logstash/pipeline
 chown -R logstash:logstash /logstash/data
 chown -R logstash:logstash /logstash/logs
 
