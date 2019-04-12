@@ -1,18 +1,14 @@
-FROM openjdk:8-jre-alpine
+FROM openjdk:8-jre-slim
 MAINTAINER Evgeniy Slizevich <evgeniy@slizevich.net>
 
 ENV LANG=C.UTF-8
 
-RUN apk add --no-cache \
-        bash \
-        ca-certificates \
-        wget \
-        tar \
+RUN apt-get update && apt-get install -y wget && rm -rf /var/lib/apt/lists/* \
     && update-ca-certificates \
-    && addgroup -S logstash \
-    && adduser -g '&' -s /bin/bash -G logstash -S logstash \
+    && addgroup --system logstash \
+    && adduser --gecos '&' --shell /bin/bash --ingroup logstash --system logstash \
     && mkdir /logstash \
-    && wget -qO - `wget -qO - https://www.elastic.co/downloads/logstash | grep -Eo 'https://.*?/logstash-.*?.tar.gz' | head -1` | tar xzf - --strip-components=1 -C /logstash \
+    && wget -qO - https://artifacts.elastic.co/downloads/logstash/logstash-7.0.0.tar.gz | tar xzf - --strip-components=1 -C /logstash \
     && rm /logstash/config/startup.options \
     && mv /logstash/config /logstash/config.orig \
     && mkdir /logstash/config \
