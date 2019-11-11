@@ -1,4 +1,4 @@
-FROM openjdk:8-jre-slim
+FROM openjdk:14-slim
 MAINTAINER Evgeniy Slizevich <evgeniy@slizevich.net>
 
 ENV LANG=C.UTF-8
@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y wget && rm -rf /var/lib/apt/lists/* \
     && addgroup --system logstash \
     && adduser --gecos '&' --shell /bin/bash --ingroup logstash --system logstash \
     && mkdir /logstash \
-    && wget -qO - https://artifacts.elastic.co/downloads/logstash/logstash-7.0.0.tar.gz | tar xzf - --strip-components=1 -C /logstash \
+    && wget -qO - https://artifacts.elastic.co/downloads/logstash/logstash-7.4.2.tar.gz | tar xzf - --strip-components=1 -C /logstash \
     && rm /logstash/config/startup.options \
     && mv /logstash/config /logstash/config.orig \
     && mkdir /logstash/config \
